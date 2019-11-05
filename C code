@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <conio.h>
+
+
+#define MAXCHAR 1000
+int main()
+{
+
+    int a;
+double timet=0;
+clock_t start,end;
+int hh,mm,ss;
+time_t now;
+time(&now);
+
+
+    FILE *fp; //Accessing the file address using pointer
+
+    //Create Text File
+    fp=fopen("21012421_WPHNWeerasuriya_PLY.txt","w");
+
+printf("Storing Data into the Text File\n\n");
+    //Get Time for each count
+    for(a=1;a<=100;a++)
+{
+start=clock();
+printf("No: %d\n",a);
+end=clock();
+timet+=((double)(end-start))/CLK_TCK;
+
+struct tm*local=localtime(&now);
+hh=local->tm_hour;
+mm=local->tm_min;
+ss=local->tm_sec;
+fprintf(fp,"No:%d System time is=%2d:%2d:%.3f\n",a,hh,mm,((double)(ss)+timet));
+}
+fclose(fp);
+
+
+//Read Text File
+FILE *fq;
+char str[MAXCHAR];
+char*filename ="21012421_WPHNWeerasuriya_PLY.txt";
+fq=fopen(filename,"r");
+
+printf("\nRetrieve data from Text File\n\n");
+//Print retrieve data
+while(fgets(str,MAXCHAR,fp))
+{
+printf("%s",str);
+}
+fclose(fp);
+
+//Display The Mac Address of the Machine
+  system("getmac");
+	getch();
+
+}
